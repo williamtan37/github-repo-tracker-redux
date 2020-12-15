@@ -1,39 +1,55 @@
-import { Octokit } from "@octokit/core";
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import React from 'react';
+import SearchInput from './SearchInput';
+import SearchList from './SearchList';
+import { Octokit } from "@octokit/core";
 
 const octokit = new Octokit();
 
-octokit.request('GET /repos/{owner}/{repo}/releases', {
-  owner: 'microsoft',
-  repo: 'vscode'
-}).then(
-  (response) => {
-    console.log(response);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {searchValue: '', searchQueryResponse: {}};
+
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleSearchSubmitQuery = this.handleSearchSubmitQuery.bind(this);
   }
-);
 
-function App() {
+  handleSearchInputChange(input) {
+    this.setState({searchValue: input})
+  }
+  handleSearchSubmitQuery() {
+    if (this.state.searchValue === '')
+      return
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let query = this.state.searchValue + "+in:name";
+    octokit.request('GET /search/repositories', {
+        q: query
+      }).then(
+        (res) => {
+          console.log(res);
+          this.setState({searchQueryResponse: res});
+        }
+      );
+  }
+  render() {
+
+    return (
+      <div>
+        <SearchInput 
+          value={this.state.searchValue}
+          onSearchInputChange={this.handleSearchInputChange} />
+        <br/>
+        <button onClick={this.handleSearchSubmitQuery}>Submit</button>
+        <SearchList response={this.state.searchQueryResponse} />
+        {this.state.searchValue}
+
+
+      </div>
+    )
+  }
+
 }
 
 export default App;
