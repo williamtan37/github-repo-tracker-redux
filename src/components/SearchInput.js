@@ -27,7 +27,9 @@ class SearchInput extends React.Component {
           <input value={searchValue}
             onChange={this.handleChange} 
             onKeyPress={this.handleKeyPress}
-            placeholder="Press Enter to Search!"/>
+            placeholder="Press Enter to Search!"
+            onBlur={this.props.onBlur}
+            onFocus={this.props.onFocus}/>
         </label>
       </form>
       )

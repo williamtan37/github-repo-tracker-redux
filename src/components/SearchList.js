@@ -30,6 +30,8 @@ class SearchList extends React.Component {
       </li>
     );
 
+    if (!this.props.showList)
+      return null;
     return (
       <ul class='searchListStyle'>{listItems}</ul>
       );

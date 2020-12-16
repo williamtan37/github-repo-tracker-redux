@@ -11,7 +11,7 @@ const octokit = new Octokit();
 
 function ApiExceededBanner(props){
   if (props.show)
-    return <p class="apiExccedAlert">You have exceeded the limit API calls. Please wait.</p>;
+    return <p class="apiExccedAlert">You have exceeded the limit for API calls. Please wait or use a VPN.</p>;
   else
     return null;
 }
@@ -29,10 +29,8 @@ class App extends React.Component {
     this.handleRefresh = this.handleRefresh.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSeenRelease = this.handleSeenRelease.bind(this);
-  }
-
-  handleSearchInputChange(input) {
-    this.setState({searchValue: input})
+    this.handleSearchInputOnFocus = this.handleSearchInputOnFocus.bind(this);
+    this.handleSearchInputOnBlur = this.handleSearchInputOnBlur.bind(this);
   }
 
   handleSearchSubmitQuery() {
@@ -66,6 +64,19 @@ class App extends React.Component {
       }
     }
     this.setState({repoList:repoList});
+  }
+
+  handleSearchInputOnFocus()
+  {
+    this.setState({showList:true})
+  }
+
+  handleSearchInputOnBlur(){
+    setTimeout(()=>{this.setState({showList:false})},100);
+  }
+  
+  handleSearchInputChange(input) {
+    this.setState({searchValue: input})
   }
 
 
@@ -154,24 +165,24 @@ class App extends React.Component {
   render() {
     return (
       <div class='container'>
-        <div class='innerContainer'>
-          <h1 class="logo">Repo Master</h1>
-          <ApiExceededBanner show={this.state.apiLimitExceeded}/>
-            <SearchInput 
-              value={this.state.searchValue}
-              onSearchInputChange={this.handleSearchInputChange} 
-              onPressEnter={this.handleSearchSubmitQuery} />
+        <h1 class="logo">Repo Master</h1>
+        <ApiExceededBanner show={this.state.apiLimitExceeded}/>
+          <SearchInput 
+            value={this.state.searchValue}
+            onSearchInputChange={this.handleSearchInputChange} 
+            onPressEnter={this.handleSearchSubmitQuery} 
+            onFocus={this.handleSearchInputOnFocus}
+            onBlur={this.handleSearchInputOnBlur}/>
 
-            <SearchList response={this.state.searchQueryResponse} 
-                        onSearchListSelected={this.handleSearchListSelected}
-                        showList={this.state.showList}/>
-          <RepositoryList onDelete={this.handleDelete}
-                          repoList={this.state.repoList}
-                          onSeenRelease={this.handleSeenRelease}/>
-           <button onClick={this.handleRefresh}>
-              Check for Updates
-          </button>
-        </div>
+          <SearchList response={this.state.searchQueryResponse} 
+                      onSearchListSelected={this.handleSearchListSelected}
+                      showList={this.state.showList}/>
+        <RepositoryList onDelete={this.handleDelete}
+                        repoList={this.state.repoList}
+                        onSeenRelease={this.handleSeenRelease}/>
+         <button onClick={this.handleRefresh}>
+            Check for Updates
+        </button>
       </div>
     );
   }

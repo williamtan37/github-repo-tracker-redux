@@ -1,6 +1,4 @@
 html{
-	background: rgb(2,0,36);
-	/*background: linear-gradient(180deg, rgba(0,255,121,1) 0%, rgba(41,205,199,1) 100%);*/
 	background: linear-gradient(180deg, rgba(0,255,98,1) 0%, rgba(24,244,238,1) 100%);
 	background-attachment: fixed;
 }
