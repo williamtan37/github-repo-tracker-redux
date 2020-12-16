@@ -31,6 +31,34 @@ class App extends React.Component {
     this.handleSeenRelease = this.handleSeenRelease.bind(this);
     this.handleSearchInputOnFocus = this.handleSearchInputOnFocus.bind(this);
     this.handleSearchInputOnBlur = this.handleSearchInputOnBlur.bind(this);
+
+  }
+
+  doSomethingBeforeUnload() {
+    let dataString = JSON.stringify({data:this.state.repoList});
+    var myStorage = window.localStorage;
+    myStorage.setItem("info", dataString);
+  }
+
+  setupBeforeUnloadListener(){
+    window.addEventListener("beforeunload", (ev) => {
+        ev.preventDefault();
+        return this.doSomethingBeforeUnload();
+    });
+  };
+
+  componentDidMount(){
+    var myStorage = window.localStorage;
+     
+    let dataObj = JSON.parse(myStorage.getItem("info"));
+    console.log(dataObj);
+    if (dataObj == null || JSON.stringify(dataObj) == '{}')
+      dataObj = [];
+    else
+      dataObj = dataObj.data
+
+     this.setState({repoList:dataObj});
+     this.setupBeforeUnloadListener();
   }
 
   handleSearchSubmitQuery() {
@@ -187,5 +215,6 @@ class App extends React.Component {
     );
   }
 }
+
 
 export default App;
