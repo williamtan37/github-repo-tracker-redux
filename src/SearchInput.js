@@ -20,7 +20,6 @@ class SearchInput extends React.Component {
           <br/>
           <input value={searchValue}
             onChange={this.handleChange} />
-          
         </label>
       </form>
       )

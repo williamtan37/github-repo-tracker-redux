@@ -1,25 +1,7 @@
-import { Octokit } from "@octokit/core";
 import React from 'react';
-
-
-const octokit = new Octokit();
-
-
-class Repo {
-  constructor(owner, name, description){
-    this.owner = owner;
-    this.name = name;
-    this.description = description;
-  }
-}
-
+import Repo from "./Repo.js"
 
 class SearchList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
   parseResponse(){
     let result = [];
     if (JSON.stringify(this.props.response) !== '{}'){
@@ -34,10 +16,17 @@ class SearchList extends React.Component {
     return result;
   }
 
+  handleClick(selectedRepo){
+    this.props.onSearchListSelected(selectedRepo);
+  }
+
   render(){
     let repos = this.parseResponse();
     let listItems = repos.map((repo) =>
-      <li key={repo.owner + "-" + repo.name}>{repo.name} {repo.owner} </li>
+      <li key={repo.owner + "-" + repo.name}>
+        <a onClick={() => {this.handleClick(repo)}}> {repo.owner}/{repo.name}
+        </a>
+      </li>
     );
 
     return (
