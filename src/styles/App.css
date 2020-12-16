@@ -1,0 +1,95 @@
+html{
+	background: rgb(2,0,36);
+	/*background: linear-gradient(180deg, rgba(0,255,121,1) 0%, rgba(41,205,199,1) 100%);*/
+	background: linear-gradient(180deg, rgba(0,255,98,1) 0%, rgba(24,244,238,1) 100%);
+	background-attachment: fixed;
+}
+
+.container{
+  margin: auto;
+  border: 1px solid white;
+  max-width: 60vw;
+  min-height: 100vh;
+  background-color:white;
+}
+
+.logo{
+  	text-align: center;
+
+}
+
+form{
+	text-align:center;
+}
+
+form input{
+	width: 70%;
+}
+
+
+.searchListStyle{
+	margin: 0 15% 0 15%;
+	padding: 0;
+	list-style-type: none;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+}
+
+.searchListStyle li{
+	padding: 3px;
+	border-bottom:2px solid black;
+
+}
+
+.searchListStyle li:hover {
+	background-color: rgba(0,255,122,1);
+}
+
+.repositoryListStyle{
+	border-top:  1px solid rgba(24,244,238,1);
+	list-style-type: none;
+	padding: 0;
+}
+
+.repositoryListStyle > li{
+	border-bottom:  1px solid rgba(24,244,238,1);
+}
+
+.repositoryListStyle h2{
+	text-align: center;
+}
+
+.repositoryListStyle h3{
+	text-align: center;
+	font-weight: normal;
+}
+
+.repositoryReleaseListStyle{
+	padding:0 ;
+    list-style-type: none;
+}
+
+.seen{
+	background-color: unset;
+}
+
+.new{
+	background-color: rgba(0,255,98,1);
+}
+
+pre{
+	white-space: pre-wrap;
+}
+button{
+	display: table;
+    margin: auto;
+}
+
+.takeoffTopBorder{
+	border: unset;
+}
+
+.apiExccedAlert{
+	color:red;
+	text-align: center;
+}
