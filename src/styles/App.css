@@ -1,6 +1,6 @@
 html{
-	background: linear-gradient(180deg, rgba(0,255,98,1) 0%, rgba(24,244,238,1) 100%);
-	background-attachment: fixed;
+  background: linear-gradient(180deg, rgba(0,255,98,1) 0%, rgba(24,244,238,1) 100%);
+  background-attachment: fixed;
 }
 
 .container{
@@ -12,82 +12,80 @@ html{
 }
 
 .logo{
-  	text-align: center;
-
+  text-align: center;
 }
 
 form{
-	text-align:center;
+  text-align:center;
 }
 
 form input{
-	width: 70%;
+  width: 70%;
 }
 
-
-.searchListStyle{
-	margin: 0 15% 0 15%;
-	padding: 0;
-	list-style-type: none;
-	border-left: 2px solid black;
-	border-right: 2px solid black;
+.searchList{
+  margin: 0 15% 0 15%;
+  padding: 0;
+  list-style-type: none;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
-.searchListStyle li{
-	padding: 3px;
-	border-bottom:2px solid black;
-
+.searchList li{
+  padding: 3px;
+  border-bottom:2px solid black;
 }
 
-.searchListStyle li:hover {
-	background-color: rgba(0,255,122,1);
+.searchList li:hover {
+  background-color: rgba(0,255,122,1);
 }
 
-.repositoryListStyle{
-	border-top:  1px solid rgba(24,244,238,1);
-	list-style-type: none;
-	padding: 0;
+.repositoryList{
+  border-top:  1px solid rgba(24,244,238,1);
+  list-style-type: none;
+  padding: 0;
 }
 
-.repositoryListStyle > li{
-	border-bottom:  1px solid rgba(24,244,238,1);
+.repositoryList > li{
+  border-bottom:  1px solid rgba(24,244,238,1);
 }
 
-.repositoryListStyle h2{
-	text-align: center;
+.repositoryList h2{
+  text-align: center;
 }
 
-.repositoryListStyle h3{
-	text-align: center;
-	font-weight: normal;
+.repositoryList h3{
+  text-align: center;
+  font-weight: normal;
 }
 
-.repositoryReleaseListStyle{
-	padding:0 ;
-    list-style-type: none;
+.releaseList{
+  padding:0 ;
+  list-style-type: none;
 }
 
 .seen{
-	background-color: unset;
+  background-color: unset;
 }
 
 .new{
-	background-color: rgba(0,255,98,1);
+  background-color: rgba(0,255,98,1);
 }
 
 pre{
-	white-space: pre-wrap;
+  white-space: pre-wrap;
 }
+
 button{
-	display: table;
-    margin: auto;
+  display: table;
+  margin: auto;
 }
 
 .takeoffTopBorder{
-	border: unset;
+  border: unset;
 }
 
 .apiExccedAlert{
-	color:red;
-	text-align: center;
+  color:red;
+  text-align: center;
 }

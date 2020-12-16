@@ -4,7 +4,7 @@ class Repository {
     this.name = name;
     this.description = description;
     this.id = id;
-    this.releases = []; //A repository has many releases
+    this.releases = [];
   }
 
   containsRelease(release){

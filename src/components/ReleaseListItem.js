@@ -1,6 +1,6 @@
 import React from 'react';
 
-class RepositoryReleaseListItem extends React.Component {
+class ReleaseListItem extends React.Component {
 
   constructor(props){
     super(props);
@@ -29,26 +29,24 @@ class RepositoryReleaseListItem extends React.Component {
   handleClickedRelease(){
     this.setState({showInfo: !this.state.showInfo});
     this.props.onSeenRelease(this.props.release);
-
   }
 
   handleShowInfo(){
     return <pre>{this.props.release.body}</pre>;
-
   }
+
   render(){ 
     let header = this.generateHeader();
     return(
-    <li key={this.props.release.tag}> 
-          <button class={this.props.release.seen?'seen':'new'}
-                  onClick={this.handleClickedRelease}>
+      <li key={this.props.release.tag}> 
+        <button class={this.props.release.seen?'seen':'new'}
+                onClick={this.handleClickedRelease}>
           {header}
-          </button>
-          {this.state.showInfo && this.handleShowInfo()}
-    </li>
+        </button>
+        {this.state.showInfo && this.handleShowInfo()}
+      </li>
     );
   }
 }
 
-
-export default RepositoryReleaseListItem;
+export default ReleaseListItem;

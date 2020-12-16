@@ -4,9 +4,11 @@ import Repository from "../classes/Repository.js"
 class SearchList extends React.Component {
   parseResponse(){
     let result = [];
+
     if (JSON.stringify(this.props.response) !== '{}'){
       let responseList = this.props.response.data.items;
       let limit = responseList.length < 10 ? responseList.length : 10;
+
       for(let i = 0; i < limit; i++){
         let r = new Repository(responseList[i].owner.login, responseList[i].name, 
                               responseList[i].description, responseList[i].id);
@@ -22,20 +24,19 @@ class SearchList extends React.Component {
   }
 
   render(){
-    let repos = this.parseResponse();
-    let listItems = repos.map((repo) =>
+    let listItems = this.parseResponse().map((repo) =>
       <li key={repo.owner + "-" + repo.name}
           onClick={() => {this.handleClick(repo)}}>
         <a> {repo.owner}/<b>{repo.name}</b></a>
       </li>
     );
 
-    if (!this.props.showList)
+    if (!this.props.showSearchList)
       return null;
-    return (
-      <ul class='searchListStyle'>{listItems}</ul>
-      );
+    else{
+      return (<ul class='searchList'>{listItems}</ul>);
     }
+  }
 }
 
 export default SearchList;

@@ -10,14 +10,16 @@ class SearchInput extends React.Component {
   handleChange(e) {
     this.props.onSearchInputChange(e.target.value);
   }
+
   handleSubmission(e){
     e.preventDefault();
   }
+
   handleKeyPress(e){
-    if(e.key === 'Enter'){
+    if(e.key === 'Enter')
       this.props.onPressEnter();
-    }
   }
+
   render() {
     const searchValue = this.props.value;
 
@@ -32,7 +34,7 @@ class SearchInput extends React.Component {
             onFocus={this.props.onFocus}/>
         </label>
       </form>
-      )
+    );
   }
 }
 
