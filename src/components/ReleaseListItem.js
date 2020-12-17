@@ -36,12 +36,11 @@ class ReleaseListItem extends React.Component {
   }
 
   render(){ 
-    let header = this.generateHeader();
     return(
       <li key={this.props.release.tag}> 
         <button class={this.props.release.seen?'seen':'new'}
                 onClick={this.handleClickedRelease}>
-          {header}
+          {this.generateHeader()}
         </button>
         {this.state.showInfo && this.handleShowInfo()}
       </li>

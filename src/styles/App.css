@@ -64,6 +64,10 @@ form input{
   list-style-type: none;
 }
 
+.releaseList button{
+  margin-bottom: 4px;
+}
+
 .seen{
   background-color: unset;
 }
@@ -88,4 +92,21 @@ button{
 .apiExccedAlert{
   color:red;
   text-align: center;
+}
+
+.loader {
+  margin: auto;
+  margin-top: 3px;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid rgba(0,255,98,1);
+  width: 17px;
+  height: 17px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

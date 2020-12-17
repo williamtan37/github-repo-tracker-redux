@@ -21,12 +21,10 @@ class SearchInput extends React.Component {
   }
 
   render() {
-    const searchValue = this.props.value;
-
     return (
       <form onSubmit={this.handleSubmission}>
         <label>
-          <input value={searchValue}
+          <input value={this.props.value}
             onChange={this.handleChange} 
             onKeyPress={this.handleKeyPress}
             placeholder="Press Enter to Search!"

@@ -4,18 +4,15 @@ import Repository from "../classes/Repository.js"
 class SearchList extends React.Component {
   parseResponse(){
     let result = [];
+    let responseList = this.props.response.data.items;
+    let limit = responseList.length < 10 ? responseList.length : 10;
 
-    if (JSON.stringify(this.props.response) !== '{}'){
-      let responseList = this.props.response.data.items;
-      let limit = responseList.length < 10 ? responseList.length : 10;
-
-      for(let i = 0; i < limit; i++){
-        let r = new Repository(responseList[i].owner.login, responseList[i].name, 
-                              responseList[i].description, responseList[i].id);
-        result.push(r);
-      }
-
+    for(let i = 0; i < limit; i++){
+      let r = new Repository(responseList[i].owner.login, responseList[i].name, 
+                            responseList[i].description, responseList[i].id);
+      result.push(r);
     }
+
     return result;
   }
 
@@ -23,18 +20,24 @@ class SearchList extends React.Component {
     this.props.onSearchListSelected(selectedRepo);
   }
 
-  render(){
-    let listItems = this.parseResponse().map((repo) =>
-      <li key={repo.owner + "-" + repo.name}
-          onClick={() => {this.handleClick(repo)}}>
-        <a> {repo.owner}/<b>{repo.name}</b></a>
-      </li>
-    );
+  generateList(){
+    if (JSON.stringify(this.props.response) !== '{}'){
+      let repoList = this.parseResponse();
+      
+      return repoList.map((repo) =>
+        <li key={repo.owner + "-" + repo.name}
+            onClick={() => {this.handleClick(repo)}}>
+          <a> {repo.owner}/<b>{repo.name}</b></a>
+        </li>
+      );
+    }
+  }
 
+  render(){
     if (!this.props.showSearchList)
       return null;
     else{
-      return (<ul class='searchList'>{listItems}</ul>);
+      return <ul class='searchList'>{this.generateList()}</ul>;
     }
   }
 }

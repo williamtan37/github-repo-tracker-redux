@@ -22,7 +22,7 @@ class App extends React.Component {
     super(props);
     this.state = {searchValue: '', searchQueryResponse: {}, 
                   repoList: [], apiLimitExceeded: false,
-                  showSearchList: true};
+                  showSearchList: true, isSearchListLoading: false};
 
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleSearchSubmitQuery = this.handleSearchSubmitQuery.bind(this);
@@ -64,16 +64,18 @@ class App extends React.Component {
 
     let query = this.state.searchValue + "+in:name";
 
+    this.setState({isSearchListLoading: true});
     octokit.request('GET /search/repositories', {
         q: query
       }).then(
         (res) => {
-          this.setState({searchQueryResponse: res, apiLimitExceeded: false});
+          this.setState({searchQueryResponse: res, apiLimitExceeded: false,
+                         isSearchListLoading: false});
         }
       ).catch(
         (error) => {
         console.log(error);
-        this.setState({apiLimitExceeded: true});
+        this.setState({apiLimitExceeded: true, isSearchListLoading: false});
     });
   }
 
@@ -193,7 +195,8 @@ class App extends React.Component {
             onBlur={this.handleSearchInputOnBlur}/>
           <SearchList response={this.state.searchQueryResponse} 
                       onSearchListSelected={this.handleSearchListSelected}
-                      showSearchList={this.state.showSearchList}/>
+                      showSearchList={this.state.showSearchList && !this.state.isSearchListLoading}/>
+          {this.state.isSearchListLoading && <div class="loader"></div>}
           <RepositoryList onDelete={this.handleDelete}
                         repoList={this.state.repoList}
                         onSeenRelease={this.handleSeenRelease}/>
