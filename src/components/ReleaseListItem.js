@@ -1,7 +1,6 @@
 import React from 'react';
 
 class ReleaseListItem extends React.Component {
-
   constructor(props){
     super(props);
     this.handleClickedRelease = this.handleClickedRelease.bind(this);

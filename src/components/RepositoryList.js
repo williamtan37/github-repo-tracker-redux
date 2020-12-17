@@ -9,7 +9,7 @@ class RepositoryList extends React.Component {
         {repo.releases.length == 0 && <h3>This repository has no releases</h3>}
         <ReleaseList releases={repo.releases} 
                      onSeenRelease={this.props.onSeenRelease}/>
-        <button onClick={()=>{this.props.onDelete(repo)}}>Untrack Repository</button>
+        <button class="deleteButton" onClick={()=>{this.props.onDelete(repo)}}>Untrack Repository</button>
       </li>);
 
     return list;
