@@ -195,7 +195,7 @@ class App extends React.Component {
     return (
       <div class='container'>
         <h1 class="logo">GitHub Repository and Release Tracker</h1> 
-        <p class="about"> This app allows you to track <b>repositories</b> and their <b>latest release</b>. Once tracked, you can refresh this page to check for new releases. All tracked information will remain until application data is cleared.</p>
+        <p class="about"> This app allows you to track <b>repositories</b> and their <b>latest release</b>. Once tracked, you can refresh this page to check for <b>newer releases</b>. All tracked information will remain until application data is cleared.</p>
         <ApiExceededBanner show={this.state.apiLimitExceeded}/>
           <SearchInput 
             value={this.state.searchValue}
