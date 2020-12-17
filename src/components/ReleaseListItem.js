@@ -15,7 +15,7 @@ class ReleaseListItem extends React.Component {
       header += "NEW!-----";
 
     header += this.props.release.tag + "-----";
-    header += date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear(); 
+    header += date.toLocaleDateString(); 
 
     if(!this.state.showInfo)
       header += "----" + "Click to Show";

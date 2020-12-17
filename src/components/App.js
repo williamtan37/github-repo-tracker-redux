@@ -36,7 +36,8 @@ class App extends React.Component {
 
   componentDidMount(){
     this.setupBeforeUnloadListener();
-    this.loadData();
+    let repoList = this.loadData();
+    this.handleRefresh(repoList);
   }
 
   loadData(){
@@ -49,6 +50,7 @@ class App extends React.Component {
       dataObj = dataObj.data
 
      this.setState({repoList: dataObj});
+     return dataObj;
   }
 
   setupBeforeUnloadListener(){
@@ -112,9 +114,10 @@ class App extends React.Component {
     this.updateRepoList(selectedRepo);
   }
 
-  handleRefresh(){
-    for(let i = 0; i < this.state.repoList.length; i++)
-      this.updateRepoList(this.state.repoList[i]);
+  handleRefresh(repoList){
+    for(let i = 0; i < repoList.length; i++){
+      this.updateRepoList(repoList[i]);
+    }
   }
 
   handleDelete(repo){
@@ -135,10 +138,8 @@ class App extends React.Component {
   }
 
   findRepoIndex(repo){
-    let repoList = this.state.repoList;
-
-    for(let i = 0; i < repoList.length; i++){
-      if (repoList[i].id == repo.id)
+    for(let i = 0; i < this.state.repoList.length; i++){
+      if (this.state.repoList[i].id == repo.id)
         return i;
     }
     return -1;
@@ -150,11 +151,19 @@ class App extends React.Component {
     this.setState({repoList: repoList});  
   }
 
-  addReleaseToList(repo, release){ 
+  containsRelease(repo, release){
+    for(let i = 0; i < repo.releases.length; i++){
+      if (repo.releases[i].id == release.id)
+        return true
+    }
+    return false
+  }
+
+  addReleaseToRepo(repo, release){ 
     let repoIndex = this.findRepoIndex(repo);
     let repoList = this.state.repoList.slice();
 
-    if (!repoList[repoIndex].containsRelease(release)){
+    if (!this.containsRelease(repoList[repoIndex], release)){
       repoList[repoIndex].releases.push(release);
       this.setState({repoList: repoList})
     }
@@ -166,13 +175,13 @@ class App extends React.Component {
       repo: repo.name
     }).then(
       (response) => {
-        let release = this.parseReleaseReponse(repo, response)
-
+        let release = this.parseReleaseReponse(repo, response);
+        
         if (this.findRepoIndex(repo) == -1)
           this.addRepoToList(repo);
 
         if (release != null)
-          this.addReleaseToList(repo, release);
+          this.addReleaseToRepo(repo, release);
 
         this.setState({apiLimitExceeded: false});
     }).catch(
@@ -200,7 +209,7 @@ class App extends React.Component {
           <RepositoryList onDelete={this.handleDelete}
                         repoList={this.state.repoList}
                         onSeenRelease={this.handleSeenRelease}/>
-          <button onClick={this.handleRefresh}>
+          <button onClick={()=>{this.handleRefresh(this.state.repoList)}}>
             Check for New Releases
           </button>
       </div>

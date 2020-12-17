@@ -6,14 +6,6 @@ class Repository {
     this.id = id;
     this.releases = [];
   }
-
-  containsRelease(release){
-    for(let i = 0; i < this.releases.length; i++){
-      if (this.releases[i].id == release.id)
-        return true
-    }
-    return false
-  }
 }
 
 export default Repository;
