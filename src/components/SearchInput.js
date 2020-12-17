@@ -27,7 +27,7 @@ class SearchInput extends React.Component {
           <input value={this.props.value}
             onChange={this.handleChange} 
             onKeyPress={this.handleKeyPress}
-            placeholder="Press Enter to Search!"
+            placeholder="Press Enter to search for repository!"
             onBlur={this.props.onBlur}
             onFocus={this.props.onFocus}/>
         </label>

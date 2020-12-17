@@ -194,7 +194,8 @@ class App extends React.Component {
   render() {
     return (
       <div class='container'>
-        <h1 class="logo">Github Repository Tracker</h1>
+        <h1 class="logo">GitHub Repository and Release Tracker</h1> 
+        <p class="about"> This app allows you to track repositories and their latest release. Once tracked, you can refresh this page to check for new releases. All tracked information will remain until application data is cleared.</p>
         <ApiExceededBanner show={this.state.apiLimitExceeded}/>
           <SearchInput 
             value={this.state.searchValue}
@@ -209,9 +210,6 @@ class App extends React.Component {
           <RepositoryList onDelete={this.handleDelete}
                         repoList={this.state.repoList}
                         onSeenRelease={this.handleSeenRelease}/>
-          <button onClick={()=>{this.handleRefresh(this.state.repoList)}}>
-            Check for New Releases
-          </button>
       </div>
     );
   }
