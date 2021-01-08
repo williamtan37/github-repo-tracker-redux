@@ -1,5 +1,13 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    currSearch: state.home.searchValue,
+}};
+
+
 class ReleaseListItem extends React.Component {
   constructor(props){
     super(props);
@@ -31,7 +39,12 @@ class ReleaseListItem extends React.Component {
   }
 
   handleShowInfo(){
-    return <pre>{this.props.release.body}</pre>;
+    return (
+      <div>
+        <pre>{this.props.release.body}</pre>
+        <p>Your current search keyword is: {this.props.currSearch}</p>
+      </div>    
+      );
   }
 
   render(){ 
@@ -47,4 +60,4 @@ class ReleaseListItem extends React.Component {
   }
 }
 
-export default ReleaseListItem;
+export default connect(mapStateToProps, null)(ReleaseListItem);

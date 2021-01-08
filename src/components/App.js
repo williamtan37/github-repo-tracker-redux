@@ -6,6 +6,10 @@ import SearchList from './SearchList';
 import Release from '../classes/Release.js'
 import RepositoryList from './RepositoryList.js'
 
+import { connect } from 'react-redux';
+import { SEARCH } from '../constants/actionTypes';
+import { store } from '../store';
+
 import '../styles/App.css';
 
 const octokit = new Octokit();
@@ -16,6 +20,11 @@ function ApiExceededBanner(props){
   else
     return null;
 }
+
+const mapDispatchToProps = dispatch => ({
+  onSearch: (searchValue) =>
+    dispatch({ type: SEARCH, payload:{searchValue}}),
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -64,6 +73,7 @@ class App extends React.Component {
     if (this.state.searchValue === '')
       return
 
+    this.props.onSearch(this.state.searchValue);
     let query = this.state.searchValue + "+in:name";
 
     this.setState({isSearchListLoading: true});
@@ -107,7 +117,7 @@ class App extends React.Component {
   }
   
   handleSearchInputChange(input) {
-    this.setState({searchValue: input})
+    this.setState({searchValue: input});
   }
 
   handleSearchListSelected(selectedRepo){
@@ -215,4 +225,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
