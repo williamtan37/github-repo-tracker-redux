@@ -127,3 +127,16 @@ button{
 .deleteButton{
   margin-bottom: 1.55em;
 }
+
+.nav{
+  text-align: center;
+}
+.nav li{
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.aboutPage{
+  text-align: center;
+
+}

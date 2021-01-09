@@ -12,8 +12,24 @@ import { store } from '../store';
 
 import '../styles/App.css';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom"
+
 const octokit = new Octokit();
 
+function About(){
+  return(
+    <div className="aboutPage">
+      <hr></hr>
+      <p>Made by William Tan 2020</p>
+      <span>You can view this project here at: </span>
+      <a href="https://github.com/williamtan37/github-repo-tracker-redux">GitHub</a>
+    </div>);
+}
 function ApiExceededBanner(props){
   if (props.show)
     return <p class="apiExccedAlert">You have exceeded the limit for API calls. Please wait or use a VPN.</p>;
@@ -203,24 +219,42 @@ class App extends React.Component {
 
   render() {
     return (
-      <div class='container'>
-        <h1 class="logo">GitHub Repository and Release Tracker</h1> 
-        <p class="about"> This app allows you to track <b>repositories</b> and their <b>latest release</b>. Once tracked, you can refresh this page to check for <b>newer releases</b>. All tracked information will remain until application data is cleared.</p>
-        <ApiExceededBanner show={this.state.apiLimitExceeded}/>
-          <SearchInput 
-            value={this.state.searchValue}
-            onSearchInputChange={this.handleSearchInputChange} 
-            onPressEnter={this.handleSearchSubmitQuery} 
-            onFocus={this.handleSearchInputOnFocus}
-            onBlur={this.handleSearchInputOnBlur}/>
-          <SearchList response={this.state.searchQueryResponse} 
-                      onSearchListSelected={this.handleSearchListSelected}
-                      showSearchList={this.state.showSearchList && !this.state.isSearchListLoading}/>
-          {this.state.isSearchListLoading && <div class="loader"></div>}
-          <RepositoryList onDelete={this.handleDelete}
-                        repoList={this.state.repoList}
-                        onSeenRelease={this.handleSeenRelease}/>
-      </div>
+      <Router>
+        <div class='container'>
+          <h1 class="logo">GitHub Repository and Release Tracker</h1> 
+          <ul className="nav">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
+          <p class="about"> This app allows you to track <b>repositories</b> and their <b>latest release</b>. Once tracked, you can refresh this page to check for <b>newer releases</b>. All tracked information will remain until application data is cleared.</p>
+
+          <Switch>
+            <Route exact path="/">
+              <ApiExceededBanner show={this.state.apiLimitExceeded}/>
+              <SearchInput 
+                value={this.state.searchValue}
+                onSearchInputChange={this.handleSearchInputChange} 
+                onPressEnter={this.handleSearchSubmitQuery} 
+                onFocus={this.handleSearchInputOnFocus}
+                onBlur={this.handleSearchInputOnBlur}/>
+              <SearchList response={this.state.searchQueryResponse} 
+                          onSearchListSelected={this.handleSearchListSelected}
+                          showSearchList={this.state.showSearchList && !this.state.isSearchListLoading}/>
+              {this.state.isSearchListLoading && <div class="loader"></div>}
+              <RepositoryList onDelete={this.handleDelete}
+                            repoList={this.state.repoList}
+                            onSeenRelease={this.handleSeenRelease}/>
+            </Route>
+            <Route path="/about">
+              <About/>
+            </Route>
+            </Switch>
+        </div>
+      </Router>
     );
   }
 }
